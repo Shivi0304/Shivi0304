@@ -1,24 +1,42 @@
- class InsertElement {
-    public int[] insert(int[] arr, int index, int key) {
+class InsertElement {
+    public int insert(int[] arr, int index, int key, int size) {
 
-        if(index > arr.length + 1) {
-            return arr;
+
+        if(arr.length == size) {
+            return -1;
+        }
+        if(arr == null) {
+            return -1;
         }
 
-        int[] newArr = new int[arr.length + 1];
-        int temp;
+        if(index >= arr.length) {
+            return -1;
+        }
 
-        //Copy the elements to new Array
-        for(int i = 0; i < arr.length; i++) {
-            newArr[i] = arr[i];
+        if(index < 0) {
+             return -1;
         }
 
         //Shifting the elements till the insertion index by 1
-        for(int i = newArr.length - 1; i > index - 1; i--) {
-           newArr[i] = newArr[i-1];
+        for(int i = arr.length - 1; i > index - 1; i--) {
+           arr[i] = arr[i-1];
         }
-        newArr[index-1] = key;
-        return newArr;
+        arr[index-1] = key;
+//        int i, j, temp;
+//        j = 0;
+//        for(i = 0; i < arr.length; i++) {
+//            if(i == (index - 1)) {
+//                j = arr[i];
+//                arr[i] = key;
+//            }
+//            else if (i > index-1) {
+//                temp = arr[i];
+//                arr[i] = j;
+//                j=temp;
+//            }
+//        }
+        size++;
+        return size;
     }
 }
 
@@ -26,13 +44,25 @@ public class InsertingElementsAtGivenIndex {
 
 
     public static void main(String[] args) {
-        int[] arr = {2,7,1,5,9,100,45,23};
-        int index = 10;
-        int key = 10;
-        InsertElement insertElement = new InsertElement();
-        arr = insertElement.insert(arr, index, key);
-        for(int i = 0; i < arr.length; i++) {
-            System.out.println(arr[i]);
+
+        int[] arr = new int[4];
+        int size = 0;
+        for(int i = 0; i < 3; i++) {
+           arr[i] = i + 1;
+           size++;
+        }
+
+        InsertElement ie = new InsertElement();
+        int index = 2;
+        int key = 20;
+        int result = ie.insert(arr,index,key,size);
+        if(result == -1) {
+            System.out.println("Element can't be inserted");
+        }
+        else {
+            for(int i = 0; i < result; i++) {
+                System.out.println(arr[i]);
+            }
         }
     }
 }
